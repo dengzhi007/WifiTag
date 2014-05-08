@@ -50,7 +50,7 @@ public class WifiClearConfigService extends Service{
 		    	&&	wifiState == WifiManager.WIFI_STATE_ENABLED 
 	    	    && (currentSSID == null 
 	    	        || currentNetId == -1 
-	    	        || !currentSSID.equals("\"" + WifiClearConfigService.this.ssid + "\"") 
+	    	        || !currentSSID.equals(WifiClearConfigService.this.ssid) 
 	    	        || wifiInfo.getNetworkId() != WifiClearConfigService.this.netId))){
 			return true;
 		}else{

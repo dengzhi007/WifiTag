@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,6 +14,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,7 +39,7 @@ public class CreateWifiTagActivity extends FragmentActivity{
 	private TextView text_tips = null;
 	private String ssid = null;
 	private String password = null;
-	
+	private ImageView btnBackward = null;
 	
     @Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -70,11 +72,15 @@ public class CreateWifiTagActivity extends FragmentActivity{
 				    	btn_confirm = (ImageView)findViewById(R.id.create_wifi_tag_confirm);
 				    	btn_cancel = (ImageView)findViewById(R.id.create_wifi_tag_cancel);
 				    	text_tips = (TextView)findViewById(R.id.create_tag_ap_mode_tips);
+				    	btnBackward = (ImageView)findViewById(R.id.create_tag_selected_backward);
 				    	check_public.setChecked(true);
 				    	check_public.setOnClickListener(new OnCheckPublicKClickListener());
 				    	check_private.setOnClickListener(new OnCheckPrivateKClickListener());
 				    	btn_confirm.setOnClickListener(new OnBtnConfirmClickListener());
 				    	btn_cancel.setOnClickListener(new OnBtnCancelClickListener());
+				    	text_tips.setOnClickListener(new OnTipsClickListener());
+				    	btnBackward.setOnClickListener(new OnBackClickListener());
+				    	
 						Toast.makeText(CreateWifiTagActivity.this, "连接 " + ssid + " 成功!", Toast.LENGTH_LONG).show();
 					}else if (msg.what == -1){
 						Toast.makeText(CreateWifiTagActivity.this, "连接 " + ssid + " 失败!", Toast.LENGTH_LONG).show();
@@ -111,7 +117,25 @@ public class CreateWifiTagActivity extends FragmentActivity{
 		}
 		
 	}
-    
+       
+	private class OnBackClickListener implements OnClickListener{
+
+		@Override
+		public void onClick(View v) {
+			CreateWifiTagActivity.this.finish();
+		}
+	}
+	private class OnTipsClickListener implements OnClickListener{
+
+		@Override
+		public void onClick(View v) {
+			if (text_tips.getText().toString().equals("为智能贴取个名字")){
+				text_tips.setText("");
+				text_tips.setTextColor(Color.BLACK);
+				text_tips.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+			}
+		}
+	}
     
 	private class OnCheckPublicKClickListener implements OnClickListener{
 
@@ -166,7 +190,7 @@ public class CreateWifiTagActivity extends FragmentActivity{
         setContentView(R.layout.create_wifi_tag_main);
     	
 
-    	
+    	btnBackward = (ImageView)findViewById(R.id.create_tag_main_backward);
         
         view_file_list = (ViewPager) findViewById(R.id.ap_list);
         
