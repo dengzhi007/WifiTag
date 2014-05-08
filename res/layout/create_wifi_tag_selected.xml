@@ -1,0 +1,150 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@drawable/create_wifi_tag_backgound"
+    tools:context=".MainActivity" >
+
+    <FrameLayout
+        android:id="@+id/top_bar"
+	    android:layout_width="fill_parent"
+	    android:layout_height="50dp"
+	    android:layout_gravity="center_vertical"
+	    android:background="@color/green"
+	    android:orientation="horizontal" >
+
+	    <ImageView
+	        android:id="@+id/create_tag_backward"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="left|center_vertical"
+	        android:layout_marginLeft="5dp"
+	        android:background="@drawable/backward"/>
+
+	    <TextView
+	        android:id="@+id/create_tag_title"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:gravity="center"
+	        android:textSize="20dp"
+	        android:textColor="@color/white"
+	        android:text="@string/create_wifi_tag" />
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/create_tag_ap_selected_ap_info"
+	    android:layout_width="wrap_content"
+	    android:layout_height="50dp"
+	    android:layout_marginTop="20dp"
+	    android:layout_gravity="center">
+
+	    <ImageView
+	        android:id="@+id/create_tag_ap_selected_wifi_logo"
+	        android:layout_width="30dp"
+	        android:layout_height="25dp"
+	        android:layout_centerInParent="true"
+	        android:layout_alignParentLeft="true"
+	        android:layout_marginRight="10dp"
+	        android:background="@drawable/wifi_logo"/>
+	    <TextView
+	        android:id="@+id/create_tag_ap_selected_ssid"
+	        android:layout_width="wrap_content"
+	        android:layout_height="fill_parent"
+	        android:layout_toLeftOf="@+id/create_wifi_tag_ok"
+	        android:layout_toRightOf="@+id/create_tag_ap_selected_wifi_logo"
+	        android:layout_centerInParent="true"
+	        android:text="ssid"
+	        android:textSize="25dp"
+	        android:gravity="center"
+	        android:textColor="@color/green" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/create_wifi_tag_input_name"
+	    android:layout_width="250dp"
+	    android:layout_height="40dp"
+	    android:layout_gravity="center"
+	    android:layout_marginTop="30dp"
+	    android:background="@drawable/create_wifi_tag_input_name"
+	    android:orientation="horizontal" >
+	    
+	    <TextView
+	        android:layout_width="0dp"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="1"
+	        android:gravity="center"/>
+		<EditText
+		    android:id="@+id/create_wifi_tag_name"
+		    android:layout_width="0dp"
+		    android:layout_weight="5"
+		    android:layout_margin="1dp"
+		    android:layout_height="fill_parent"
+		    android:gravity="center"
+		    android:text="为智能贴取个名字"
+		    android:textColor="@color/green"
+		    android:textSize="15dp" >
+		</EditText>
+	</LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/create_tag_ap_select_mode"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:gravity="center"
+	    android:layout_marginTop="10dp"
+	    android:orientation="horizontal" >
+
+	    <CheckBox
+	        android:id="@+id/create_tag_ap_check_public"
+	        android:layout_width="30dp"
+	        android:layout_height="25dp"/>
+	    <TextView
+	        android:id="@+id/create_tag_ap_text_public"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="公共模式"
+	        android:textSize="20dp"
+	        android:gravity="center"
+	        android:textColor="@color/green" />
+	    <CheckBox
+	        android:id="@+id/create_tag_ap_check_private"
+	        android:layout_marginLeft="20dp"
+	        android:layout_width="30dp"
+	        android:layout_height="25dp"/>
+	    <TextView
+	        android:id="@+id/create_tag_ap_text_private"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="私人模式"
+	        android:textSize="20dp"
+	        android:gravity="center"
+	        android:textColor="@color/green" />
+    </LinearLayout>
+    
+    <TextView
+        android:id="@+id/create_tag_ap_mode_tips"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:text="公共模式不会对写入信息进行加密，没有安装本应用的用户也能获取密码"
+        android:textSize="15dp"
+        android:gravity="center"
+        android:textColor="@color/green" />
+    
+    <ImageView
+        android:id="@+id/create_wifi_tag_confirm"
+        android:layout_width="200dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:src="@drawable/create_wifi_tag_confirm"/>
+    
+    <ImageView
+        android:id="@+id/create_wifi_tag_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:src="@drawable/create_wifi_tag_button_cancel"/>
+</LinearLayout>

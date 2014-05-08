@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, WifiTagActivity!</string>
+    <string name="app_name">WifiTag</string>
+    <string name="connect">Connect</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="encrypt">Encrypt</string>
+    <string name="ap_item_ssid">honest_man</string>
+    <string name="ap_item_encrypt_type">ap_item_encrypt_type</string>
+    <string name="create_wifi_tag">新建智能贴</string>
+    <string name="create_wifi_tag_ap_ssid">honestman</string>
+    <string name="create_tag_tips">请选择一个Wifi热点</string>
+    <string name="create_tag_input_password">请输入访问密码</string>
+    
+    
+</resources>

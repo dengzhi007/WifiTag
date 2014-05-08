@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <FrameLayout 
+        android:id="@+id/topbar"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true">
+        
+        <TextView 
+            android:id="@+id/topbarbackground"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/tagread_topbar"/>
+        
+        <Button 
+            android:id="@+id/backward"
+            android:layout_width="50dp"
+            android:layout_height="fill_parent"
+            android:alpha="0"
+            android:onClick="onClickOfMenuBtn"/>
+        
+        <Button 
+            android:id="@+id/topbarRightBtn"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:alpha="0"
+            android:onClick="onClickOfTopbarRightBtn"/>
+        
+    </FrameLayout>
+    
+    
+    
+    
+    <LinearLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/topbar"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+    
+    	<LinearLayout 
+        	android:id="@+id/menuLayout"
+        	android:layout_width="250dp"
+    		android:layout_height="fill_parent"
+    		android:orientation="vertical"
+    		android:background="@color/white">
+        
+        
+        	<TextView
+        		android:layout_width="fill_parent"
+        		android:layout_height="150dp"
+        		android:background="@drawable/menu_banner"
+        		android:layout_gravity="center"/>
+        	
+        	
+        	
+        
+        	<Button 
+            	android:id="@+id/slideMenuBtnTagread"
+            	android:layout_width="fill_parent"
+            	android:layout_height="80dp"
+            	android:background="@drawable/tagmenu_tagread_white"
+            	android:onClick="onClickOfMenuBtn"/>
+        
+
+        
+        	<Button 
+            	android:id="@+id/slideMenuBtnMytag"
+            	android:layout_width="fill_parent"
+            	android:layout_height="80dp"
+            	android:background="@drawable/tagmenu_mytag_white"
+            	android:onClick="onClickOfMenuBtn"/>
+        
+    	</LinearLayout>
+    
+    
+    
+    	<LinearLayout 
+        	android:id="@+id/contentLayout"
+        	android:layout_width="300dp"
+    		android:layout_height="fill_parent"
+    		android:background="@drawable/background">
+        
+		</LinearLayout>
+    
+    </LinearLayout>
+
+</RelativeLayout>
