@@ -92,7 +92,7 @@ public class WifiConnect {
 		
 		//Thread.sleep(5000);
 		
-		for (int i = 0; isConnected && i != 5; ++i){
+		for (int i = 0; isConnected && i != 10; ++i){
 			try {
 				State wifiState = connectManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState();
 				String ss = wifiManager.getConnectionInfo().getSSID();

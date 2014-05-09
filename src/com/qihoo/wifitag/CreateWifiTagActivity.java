@@ -172,7 +172,7 @@ public class CreateWifiTagActivity extends FragmentActivity{
 				intentWriteTag.putExtra("ssid", CreateWifiTagActivity.this.ssid);
 				intentWriteTag.putExtra("password", CreateWifiTagActivity.this.password);
 				intentWriteTag.putExtra("tagname", tagName);
-				intentWriteTag.putExtra("isPrivate", check_public.isChecked());
+				intentWriteTag.putExtra("isPrivate", check_private.isChecked());
 				CreateWifiTagActivity.this.startActivity(intentWriteTag);
 			}
 		}
