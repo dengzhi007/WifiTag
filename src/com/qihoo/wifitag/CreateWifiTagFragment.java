@@ -11,6 +11,7 @@ import com.qihoo.wifitag.WifiConnect.apInfo;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources.Theme;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -56,7 +57,19 @@ public class CreateWifiTagFragment extends Fragment implements OnClickListener {
 		btnFolderBackward.setOnClickListener(new FolderBackwardListener());
 		
 		adapter = CreateWifiTagApItemAdapter.instance(getActivity(), ap_list, this);
+		
 		refreshFileList(currentFolderPath);
+		
+//		new Thread(new Runnable()
+//		{
+//			@Override
+//			public void run(){
+//				
+//			}
+//		}).start();
+		
+		
+		
 		ap_list_view.setOnItemClickListener(new FolderClickListener());
 		ap_list_view.setAdapter(adapter);
 		return view;
@@ -73,7 +86,7 @@ public class CreateWifiTagFragment extends Fragment implements OnClickListener {
 		List<apInfo> apInfo = wifiConnect.getApList();
 		for (int i = 0; i != apInfo.size(); ++i){
 			ap_list.add(new CreateWifiTagApItem(apInfo.get(i).ssid, apInfo.get(i).encryptType));
-		}	
+		}
 		
 		adapter.notifyDataSetInvalidated();
 	}

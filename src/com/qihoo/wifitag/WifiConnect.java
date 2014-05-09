@@ -97,7 +97,8 @@ public class WifiConnect {
 				State wifiState = connectManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState();
 				String ss = wifiManager.getConnectionInfo().getSSID();
 				if (wifiState == State.CONNECTED
-				    && wifiManager.getConnectionInfo().getSSID().equals(this.ssid)){
+				    && (wifiManager.getConnectionInfo().getSSID().equals(this.ssid)
+				        || wifiManager.getConnectionInfo().getSSID().equals("\"" + this.ssid + "\""))){
 					isConnectToDestSsid = true;
 					break;
 				}else{
