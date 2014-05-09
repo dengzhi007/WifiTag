@@ -34,6 +34,8 @@ public class WifiTagActivity extends SlideMenuActivity {
 	public static final int WIFI_CONNECTED = 0x1236;
 	public static final int WIFI_DISCONNECT = 0x1237;
 	
+	
+	private TextView tvWifiText=null;
 	private TextView tvFindtag=null;
 	private TextView tvReadtagsuccess=null;
 	private TextView tvWificonnected=null;
@@ -55,6 +57,8 @@ public class WifiTagActivity extends SlideMenuActivity {
      
         processIntent(getIntent());
         
+        tvWifiText=(TextView) findViewById(R.id.wifitext);
+        //tvWifiText.setText("heheheh");
         tvFindtag=(TextView) findViewById(R.id.findtag);
         tvReadtagsuccess=(TextView) findViewById(R.id.readtagsuccess);
         tvWificonnected=(TextView) findViewById(R.id.wificonnected);
@@ -105,6 +109,7 @@ public class WifiTagActivity extends SlideMenuActivity {
     			System.out.println("processing nfc tag");
     			
     			findAtag(true);
+    			tvWifiText.setText("");
     			
     			final Handler h = new Handler(){
 					@Override
@@ -125,6 +130,8 @@ public class WifiTagActivity extends SlideMenuActivity {
 						if(msg.what==WIFI_CONNECTED){
 							//Toast.makeText(WifiTagActivity.this, "write fail", 50).show();
 							wificonnected(true);
+							if(readTagStr!=null&&readTagStr.length>0)
+								tvWifiText.setText("已成功连接上WiFi: "+readTagStr[0]);
 							
 						}
 						if(msg.what==WIFI_DISCONNECT){
@@ -137,13 +144,19 @@ public class WifiTagActivity extends SlideMenuActivity {
     			
     			if(writeTagWaitingList.size() !=0){
     				String[] writeTagStr = writeTagWaitingList.remove(0);
-
     				Thread thread = new WriteNFCThread(h, writeTagStr, getIntent());
     				thread.start();
 
     			}else{
     				
     				readTagStr = NFCUtil.readMessage(intent);
+    				
+    				if(readTagStr==null||readTagStr.length!=3){
+    					readTagSuccess(false);
+                    	wificonnected(false);
+                    	return;
+    				}
+    					
     				/*
     				StringBuffer sb=new StringBuffer();
     				for(int i=0;i<readTagStr.length;i++){
@@ -153,11 +166,11 @@ public class WifiTagActivity extends SlideMenuActivity {
         			
     				
         			Toast.makeText(this,sb.toString(), 50).show();*/
-    				
+    				/*
     				System.out.println(readTagStr[0]);
     				System.out.println(readTagStr[1]);
     				System.out.println(readTagStr[2]);
-    				
+    				*/
     				Thread thread = new Thread(){
     					public void run() {
     						
@@ -201,24 +214,15 @@ public class WifiTagActivity extends SlideMenuActivity {
                     	readTagSuccess(true);
                     	tvWificonnected.setBackgroundResource(R.drawable.tagread_wait);
                     	thread.start();
-                    	
-
                     }else{
                     	readTagSuccess(false);
                     	wificonnected(false);
                     }
-        			
-        			
-        			
-        			
     			}
-    			
     		}else{
     			findAtag(false);
     		}
-    		
     	}
-    	
     }
     
     @Override

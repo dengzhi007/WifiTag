@@ -6,8 +6,13 @@
     
 
     <TextView 
-        android:layout_width="fill_parent"
-        android:layout_height="100dp"/>
+        android:id="@+id/wifitext"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:textSize="20dp"
+        android:textColor="@color/green"
+        android:gravity="center"/>
     
     <com.qihoo.wifitag.util.PowerImageView
         xmlns:honestman="http://schemas.android.com/apk/res/com.qihoo.wifitag"
