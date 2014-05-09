@@ -26,11 +26,11 @@
             android:name=".WifiTagActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask" >
-<!--             <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter> -->
+            </intent-filter> 
             <intent-filter>
                 <action android:name="android.nfc.action.TAG_DISCOVERED"/>
                 
@@ -70,11 +70,7 @@
         
         <!-- create WIFI tag begin -->
     	<activity android:name=".CreateWifiTagActivity">
-    	    <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+    	    
     	</activity>
     	<activity
             android:name=".CreateWifiTagInputPwdActivity"

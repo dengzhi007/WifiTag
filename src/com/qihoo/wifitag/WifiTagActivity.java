@@ -16,6 +16,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +58,8 @@ public class WifiTagActivity extends SlideMenuActivity {
         tvFindtag=(TextView) findViewById(R.id.findtag);
         tvReadtagsuccess=(TextView) findViewById(R.id.readtagsuccess);
         tvWificonnected=(TextView) findViewById(R.id.wificonnected);
+        Button topbarRightBtn=(Button) findViewById(R.id.topbarRightBtn);
+        topbarRightBtn.setAlpha(1);
     }
     
     @Override
@@ -66,6 +69,14 @@ public class WifiTagActivity extends SlideMenuActivity {
     	NFCUtil.init(this);
     	NFCUtil.enableForeground(this);
     	
+    }
+    
+    @Override
+    public void onClickOfTopbarRightBtn(View source) {
+    	// TODO Auto-generated method stub
+    	super.onClickOfTopbarRightBtn(source);
+    	Intent intent=new Intent(WifiTagActivity.this,CreateWifiTagActivity.class);
+    	startActivity(intent);
     }
     
     @Override
@@ -143,6 +154,9 @@ public class WifiTagActivity extends SlideMenuActivity {
     				
         			Toast.makeText(this,sb.toString(), 50).show();*/
     				
+    				System.out.println(readTagStr[0]);
+    				System.out.println(readTagStr[1]);
+    				System.out.println(readTagStr[2]);
     				
     				Thread thread = new Thread(){
     					public void run() {
@@ -153,13 +167,17 @@ public class WifiTagActivity extends SlideMenuActivity {
     							String password=null;
     		    				if(readTagStr[2].equals("1")){
     		    					RSA rsa = new RSA();
-    		    					ssid = rsa.decrypt(readTagStr[0]);
+    		    					//ssid = rsa.decrypt(readTagStr[0]);
+    		    					ssid=readTagStr[0];
     		    					password = rsa.decrypt(readTagStr[1]);
     		    					
     		    				}else{
     		    					ssid=readTagStr[0];
     		    					password=readTagStr[1];
     		    				}
+    		    				
+    		    				System.out.println(readTagStr[0]);
+    		    				System.out.println(readTagStr[1]);
     							
                     			WifiConnect wifiConnect = new WifiConnect(WifiTagActivity.this);
                     			WifiConnect.ConnectStatus connectStatus = wifiConnect.connect(ssid, password, 0);

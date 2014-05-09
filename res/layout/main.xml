@@ -54,7 +54,7 @@
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:gravity="center_vertical"
-                android:text="2.读取成功"
+                android:text="2.读取标签"
                 android:textSize="20dp"
                 android:textColor="@color/green"/>
                 
@@ -64,7 +64,7 @@
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:gravity="center_vertical"
-                android:text="3.WiFi连接成功"
+                android:text="3.连接wifi"
                 android:textSize="20dp"
                 android:textColor="@color/green"/>
             
