@@ -73,12 +73,14 @@ public class CreateWifiTagActivity extends FragmentActivity{
 				    	btn_cancel = (ImageView)findViewById(R.id.create_wifi_tag_cancel);
 				    	text_tips = (TextView)findViewById(R.id.create_tag_ap_mode_tips);
 				    	btnBackward = (ImageView)findViewById(R.id.create_tag_selected_backward);
+				    	
+				    	text_ssid.setText(CreateWifiTagActivity.this.ssid);
 				    	check_public.setChecked(true);
 				    	check_public.setOnClickListener(new OnCheckPublicKClickListener());
 				    	check_private.setOnClickListener(new OnCheckPrivateKClickListener());
 				    	btn_confirm.setOnClickListener(new OnBtnConfirmClickListener());
 				    	btn_cancel.setOnClickListener(new OnBtnCancelClickListener());
-				    	text_tips.setOnClickListener(new OnTipsClickListener());
+				    	edit_tag_name.setOnClickListener(new OnTipsClickListener());
 				    	btnBackward.setOnClickListener(new OnBackClickListener());
 				    	
 						Toast.makeText(CreateWifiTagActivity.this, "连接 " + ssid + " 成功!", Toast.LENGTH_LONG).show();
@@ -118,6 +120,7 @@ public class CreateWifiTagActivity extends FragmentActivity{
 		
 	}
        
+    
 	private class OnBackClickListener implements OnClickListener{
 
 		@Override
@@ -129,10 +132,10 @@ public class CreateWifiTagActivity extends FragmentActivity{
 
 		@Override
 		public void onClick(View v) {
-			if (text_tips.getText().toString().equals("为智能贴取个名字")){
-				text_tips.setText("");
-				text_tips.setTextColor(Color.BLACK);
-				text_tips.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+			if (edit_tag_name.getText().toString().equals("为智能贴取个名字")){
+				edit_tag_name.setText("");
+				edit_tag_name.setTextColor(Color.BLACK);
+				edit_tag_name.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 			}
 		}
 	}
@@ -169,7 +172,7 @@ public class CreateWifiTagActivity extends FragmentActivity{
 				intentWriteTag.putExtra("ssid", CreateWifiTagActivity.this.ssid);
 				intentWriteTag.putExtra("password", CreateWifiTagActivity.this.password);
 				intentWriteTag.putExtra("tagname", tagName);
-				intentWriteTag.putExtra("isPrivate", check_public.isChecked());
+				intentWriteTag.putExtra("isPrivate", check_private.isChecked());
 				CreateWifiTagActivity.this.startActivity(intentWriteTag);
 			}
 		}

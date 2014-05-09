@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,7 +25,13 @@ public class CreateWifiTagInputPwdActivity extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);   
+		getWindow().setFlags(WindowManager.LayoutParams. FLAG_FULLSCREEN , WindowManager.LayoutParams. FLAG_FULLSCREEN);  
+
+		
 		setContentView(R.layout.create_wifi_tag_input_pwd);
+		
+		
 		text_input_pwd = (EditText)findViewById(R.id.create_wifi_tag_pwd);
 		btn_ok = (ImageView)findViewById(R.id.create_wifi_tag_pwd_ok);
 		btn_cancel = (ImageView)findViewById(R.id.create_wifi_tag_pwd_cancel);
