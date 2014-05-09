@@ -130,10 +130,11 @@ public class SlideMenuActivity extends Activity {
 			
 			//setTopbarBackground(int drawableID);
 			//setSelectedMenu(int row);
+			slideToContent();
 			if(currentMenuRow==0)
 				return;
-			currentMenuRow=0;
-			slideToContent();
+			//currentMenuRow=0;
+			
 			//setSelectedMenu(0);
 			intent=new Intent();
 			intent.setAction("android.intent.action.readtag");
@@ -142,10 +143,11 @@ public class SlideMenuActivity extends Activity {
 			
 			break;
 		case R.id.slideMenuBtnMytag:
+			slideToContent();
 			if(currentMenuRow==1)
 				return;	
-			currentMenuRow=1;
-			slideToContent();
+			//currentMenuRow=1;
+			
 			//setSelectedMenu(1);
 			intent=new Intent();
 			intent.setAction("android.intent.action.mytag");

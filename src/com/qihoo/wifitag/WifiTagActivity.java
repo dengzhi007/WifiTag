@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.qihoo.wifitag.util.DBUtil;
+import com.qihoo.wifitag.util.RSA;
 
 import android.content.Context;
 import android.content.Intent;
@@ -26,8 +27,15 @@ public class WifiTagActivity extends SlideMenuActivity {
 	//write message to tag :  writeTagWaitingList.add(writeStr);
 	private List<String[]> writeTagWaitingList = new ArrayList<String[]>();
 	
-	public static final int WRITE_SUCESS = 0x1234;
-	public static final int WRITE_FAIL = 0x1233;
+	public static final int WRITE_SUCESS = 0x1233;
+	public static final int WRITE_FAIL = 0x1234;
+	public static final int READ_SUCCESS = 0x1235;
+	public static final int WIFI_CONNECTED = 0x1236;
+	public static final int WIFI_DISCONNECT = 0x1237;
+	
+	private TextView tvFindtag=null;
+	private TextView tvReadtagsuccess=null;
+	private TextView tvWificonnected=null;
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -45,6 +53,10 @@ public class WifiTagActivity extends SlideMenuActivity {
         DBUtil.init(this, 1);
      
         processIntent(getIntent());
+        
+        tvFindtag=(TextView) findViewById(R.id.findtag);
+        tvReadtagsuccess=(TextView) findViewById(R.id.readtagsuccess);
+        tvWificonnected=(TextView) findViewById(R.id.wificonnected);
     }
     
     @Override
@@ -75,7 +87,7 @@ public class WifiTagActivity extends SlideMenuActivity {
     			||NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
     		//
     		System.out.println("nfc tag found");
-    		Toast.makeText(this, "FIND A TAG...", 50).show();
+    		//Toast.makeText(this, "FIND A TAG...", 50).show();
 
     		if(NFCUtil.isAvailable()){
     			//process...
@@ -83,30 +95,45 @@ public class WifiTagActivity extends SlideMenuActivity {
     			
     			findAtag(true);
     			
+    			final Handler h = new Handler(){
+					@Override
+					public void handleMessage(Message msg) {
+						// TODO Auto-generated method stub
+						super.handleMessage(msg);
+						
+						if(msg.what==WRITE_SUCESS){
+							Toast.makeText(WifiTagActivity.this, "write success", 50).show();
+						}
+						if(msg.what==WRITE_FAIL){
+							Toast.makeText(WifiTagActivity.this, "write fail", 50).show();
+						}
+						if(msg.what==READ_SUCCESS){
+							//Toast.makeText(WifiTagActivity.this, "write fail", 50).show();
+							readTagSuccess(true);
+						}
+						if(msg.what==WIFI_CONNECTED){
+							//Toast.makeText(WifiTagActivity.this, "write fail", 50).show();
+							wificonnected(true);
+							
+						}
+						if(msg.what==WIFI_DISCONNECT){
+							//Toast.makeText(WifiTagActivity.this, "write fail", 50).show();
+							wificonnected(false);
+							
+						}
+					}
+				};
+    			
     			if(writeTagWaitingList.size() !=0){
     				String[] writeTagStr = writeTagWaitingList.remove(0);
-    				
-    				Handler h = new Handler(){
-    					@Override
-    					public void handleMessage(Message msg) {
-    						// TODO Auto-generated method stub
-    						super.handleMessage(msg);
-    						
-    						if(msg.what==WRITE_SUCESS){
-    							Toast.makeText(WifiTagActivity.this, "write success", 50).show();
-    						}else{
-    							Toast.makeText(WifiTagActivity.this, "write fail", 50).show();
-    						}
-    					}
-    				};
-    				
+
     				Thread thread = new WriteNFCThread(h, writeTagStr, getIntent());
     				thread.start();
 
     			}else{
     				
     				readTagStr = NFCUtil.readMessage(intent);
-    				
+    				/*
     				StringBuffer sb=new StringBuffer();
     				for(int i=0;i<readTagStr.length;i++){
     					sb.append(readTagStr[i]);
@@ -114,24 +141,49 @@ public class WifiTagActivity extends SlideMenuActivity {
     				}
         			
     				
-        			Toast.makeText(this,sb.toString(), 50).show();
+        			Toast.makeText(this,sb.toString(), 50).show();*/
+    				
+    				
+    				Thread thread = new Thread(){
+    					public void run() {
+    						
+    						try {
+                            	
+    							String ssid=null;
+    							String password=null;
+    		    				if(readTagStr[2].equals("1")){
+    		    					RSA rsa = new RSA();
+    		    					ssid = rsa.decrypt(readTagStr[0]);
+    		    					password = rsa.decrypt(readTagStr[1]);
+    		    					
+    		    				}else{
+    		    					ssid=readTagStr[0];
+    		    					password=readTagStr[1];
+    		    				}
+    							
+                    			WifiConnect wifiConnect = new WifiConnect(WifiTagActivity.this);
+                    			WifiConnect.ConnectStatus connectStatus = wifiConnect.connect(ssid, password, 0);
+                    			
+                    			if(connectStatus==WifiConnect.ConnectStatus.CONNECT_STATUS_OK)
+                    				h.sendEmptyMessage(WIFI_CONNECTED);
+                    			else{
+                    				h.sendEmptyMessage(WIFI_DISCONNECT);
+                    			}
+    						} catch (Exception e) {
+    							// TODO: handle exception
+    							h.sendEmptyMessage(WIFI_DISCONNECT);
+    						}
+    						
+    					}
+    				};
+    				
         			
                     if(isWifiTag(readTagStr)){
-                    	try {
-                        	readTagSuccess(true);
-                			
-                			WifiConnect wifiConnect = new WifiConnect(WifiTagActivity.this);
-                			WifiConnect.ConnectStatus connectStatus = wifiConnect.connect(readTagStr[0], readTagStr[1], 0);
-                			
-                			if(connectStatus==WifiConnect.ConnectStatus.CONNECT_STATUS_OK)
-                				wificonnected(true);
-                			else{
-                				wificonnected(false);
-                			}
-						} catch (Exception e) {
-							// TODO: handle exception
-							wificonnected(false);
-						}
+                    	//h.sendEmptyMessage(READ_SUCCESS);
+                    	readTagSuccess(true);
+                    	tvWificonnected.setBackgroundResource(R.drawable.tagread_wait);
+                    	thread.start();
+                    	
 
                     }else{
                     	readTagSuccess(false);
@@ -168,30 +220,30 @@ public class WifiTagActivity extends SlideMenuActivity {
     
   
     private void findAtag(boolean found){
-    	TextView tv=(TextView) findViewById(R.id.findtag);
-    	if(found){
-    		tv.setBackgroundResource(R.drawable.tagread_ok);
+    	
+    	if(found&&tvFindtag!=null){
+    		tvFindtag.setBackgroundResource(R.drawable.tagread_ok);
     	}else{
-    		tv.setBackgroundResource(R.drawable.tagread_error);
+    		tvFindtag.setBackgroundResource(R.drawable.tagread_error);
     	}
     	
     }
     
     private void readTagSuccess(boolean success){
-    	TextView tv=(TextView) findViewById(R.id.readtagsuccess);
-    	if(success){
-    		tv.setBackgroundResource(R.drawable.tagread_ok);
+    	
+    	if(success&&tvReadtagsuccess!=null){
+    		tvReadtagsuccess.setBackgroundResource(R.drawable.tagread_ok);
     	}else{
-    		tv.setBackgroundResource(R.drawable.tagread_error);
+    		tvReadtagsuccess.setBackgroundResource(R.drawable.tagread_error);
     	}
     }
     
     private void wificonnected(boolean connected){
-    	TextView tv=(TextView) findViewById(R.id.wificonnected);
-    	if(connected){
-    		tv.setBackgroundResource(R.drawable.tagread_ok);
+    	
+    	if(connected&&tvWificonnected!=null){
+    		tvWificonnected.setBackgroundResource(R.drawable.tagread_ok);
     	}else{
-    		tv.setBackgroundResource(R.drawable.tagread_error);
+    		tvWificonnected.setBackgroundResource(R.drawable.tagread_error);
     	}
     }
     
