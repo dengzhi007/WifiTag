@@ -52,7 +52,7 @@ public class CreateWifiTagFragment extends Fragment implements OnClickListener {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.create_wifi_tag_ap_list, container, false);
 		findView(view);
-		btnFolderBackward = (ImageView)getActivity().findViewById(R.id.create_tag_backward);
+		btnFolderBackward = (ImageView)getActivity().findViewById(R.id.create_tag_main_backward);
 		btnFolderBackward.setOnClickListener(new FolderBackwardListener());
 		
 		adapter = CreateWifiTagApItemAdapter.instance(getActivity(), ap_list, this);
@@ -99,7 +99,7 @@ public class CreateWifiTagFragment extends Fragment implements OnClickListener {
 	class FolderBackwardListener implements OnClickListener{
 		@Override
 		public void onClick(View v) {
-			//
+			getActivity().finish();
 		}
 	}
 	

@@ -21,7 +21,8 @@
         android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:gravity="center"
-        android:visibility="invisible">
+        android:visibility="invisible"
+        android:background="@color/white">
         <ImageView android:id="@+id/delete_tags"
             android:src="@drawable/delete_tags"
             android:layout_width="wrap_content"

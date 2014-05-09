@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/create_wifi_tag_backgound"
+    android:background="@drawable/tagwrite_background"
     android:orientation="vertical"
     tools:context=".MainActivity" >
     
@@ -15,7 +15,7 @@
 	    android:orientation="horizontal" >
 
 	    <ImageView
-	        android:id="@+id/create_tag_backward"
+	        android:id="@+id/create_tag_main_backward"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_gravity="left|center_vertical"

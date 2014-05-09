@@ -90,19 +90,18 @@ public class WifiConnect {
 		boolean isConnected = this.wifiManager.enableNetwork(netId, true);
 		boolean isConnectToDestSsid = false;
 		
-		Thread.sleep(5000);
+		//Thread.sleep(5000);
 		
-		for (int i = 0; isConnected && i != 10; ++i){
+		for (int i = 0; isConnected && i != 5; ++i){
 			try {
 				State wifiState = connectManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState();
+				String ss = wifiManager.getConnectionInfo().getSSID();
 				if (wifiState == State.CONNECTED
-				    && wifiManager.getConnectionInfo().getSSID().equals("\"" + this.ssid + "\"")){
+				    && wifiManager.getConnectionInfo().getSSID().equals(this.ssid)){
 					isConnectToDestSsid = true;
 					break;
-				}else if (wifiState == State.CONNECTING){
-					Thread.sleep(1000);
 				}else{
-					break;
+					Thread.sleep(1000);
 				}
 			} catch (Exception e) {
 				// TODO: handle exception
