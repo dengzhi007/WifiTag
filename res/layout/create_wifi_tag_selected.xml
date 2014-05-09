@@ -80,7 +80,7 @@
 		    android:layout_height="fill_parent"
 		    android:gravity="center"
 		    android:text="为智能贴取个名字"
-		    android:textColor="@color/green"
+		    android:textColor="@color/gray"
 		    android:textSize="15dp" >
 		</EditText>
 	</LinearLayout>
