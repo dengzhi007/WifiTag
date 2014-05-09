@@ -50,11 +50,11 @@ public class CreateWifiTagInputPwdActivity extends Activity{
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			if (text_input_pwd.getText().toString().equals("请输入访问密码")){
-				text_input_pwd.setText("");
-				text_input_pwd.setTextColor(Color.BLACK);
-				text_input_pwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-			}
+//			if (text_input_pwd.getText().toString().equals("请输入访问密码")){
+//				text_input_pwd.setText("");
+//				text_input_pwd.setTextColor(Color.BLACK);
+//				text_input_pwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+//			}
 		}
 	}
 	

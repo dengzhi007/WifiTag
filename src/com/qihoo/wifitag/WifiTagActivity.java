@@ -36,7 +36,9 @@ public class WifiTagActivity extends SlideMenuActivity {
 	
 	
 	private TextView tvWifiText=null;
-	private TextView tvFindtag=null;
+	
+	private TextView tvReadtagsuccesstext=null;
+	private TextView tvWificonnectedtext=null;
 	private TextView tvReadtagsuccess=null;
 	private TextView tvWificonnected=null;
 
@@ -59,7 +61,11 @@ public class WifiTagActivity extends SlideMenuActivity {
         
         tvWifiText=(TextView) findViewById(R.id.wifitext);
         //tvWifiText.setText("heheheh");
-        tvFindtag=(TextView) findViewById(R.id.findtag);
+        //tvFindtag=(TextView) findViewById(R.id.findtag);
+        
+        
+        tvReadtagsuccesstext=(TextView) findViewById(R.id.readtagsuccesstext);
+        tvWificonnectedtext=(TextView) findViewById(R.id.wificonnectedtext);
         tvReadtagsuccess=(TextView) findViewById(R.id.readtagsuccess);
         tvWificonnected=(TextView) findViewById(R.id.wificonnected);
         Button topbarRightBtn=(Button) findViewById(R.id.topbarRightBtn);
@@ -108,8 +114,11 @@ public class WifiTagActivity extends SlideMenuActivity {
     			//process...
     			System.out.println("processing nfc tag");
     			
-    			findAtag(true);
+    			//findAtag(true);
     			tvWifiText.setText("");
+    			
+    			tvReadtagsuccesstext.setVisibility(1);
+    			tvReadtagsuccess.setBackgroundResource(R.drawable.tagread_wait);
     			
     			final Handler h = new Handler(){
 					@Override
@@ -153,6 +162,7 @@ public class WifiTagActivity extends SlideMenuActivity {
     				
     				if(readTagStr==null||readTagStr.length!=3){
     					readTagSuccess(false);
+    					tvWificonnectedtext.setVisibility(1);
                     	wificonnected(false);
                     	return;
     				}
@@ -212,15 +222,17 @@ public class WifiTagActivity extends SlideMenuActivity {
                     if(isWifiTag(readTagStr)){
                     	//h.sendEmptyMessage(READ_SUCCESS);
                     	readTagSuccess(true);
+                    	tvWificonnectedtext.setVisibility(1);
                     	tvWificonnected.setBackgroundResource(R.drawable.tagread_wait);
                     	thread.start();
                     }else{
                     	readTagSuccess(false);
+                    	tvWificonnectedtext.setVisibility(1);
                     	wificonnected(false);
                     }
     			}
     		}else{
-    			findAtag(false);
+    			//findAtag(false);
     		}
     	}
     }
@@ -240,7 +252,7 @@ public class WifiTagActivity extends SlideMenuActivity {
 		}
     }
     
-  
+  /*
     private void findAtag(boolean found){
     	
     	if(found&&tvFindtag!=null){
@@ -250,6 +262,8 @@ public class WifiTagActivity extends SlideMenuActivity {
     	}
     	
     }
+    */
+    
     
     private void readTagSuccess(boolean success){
     	

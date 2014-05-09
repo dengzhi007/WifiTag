@@ -132,11 +132,11 @@ public class CreateWifiTagActivity extends FragmentActivity{
 
 		@Override
 		public void onClick(View v) {
-			if (edit_tag_name.getText().toString().equals("为智能贴取个名字")){
-				edit_tag_name.setText("");
-				edit_tag_name.setTextColor(Color.BLACK);
-				//edit_tag_name.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-			}
+//			if (edit_tag_name.getText().toString().equals("为智能贴取个名字")){
+//				edit_tag_name.setText("");
+//				edit_tag_name.setTextColor(Color.BLACK);
+//				//edit_tag_name.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+//			}
 		}
 	}
     

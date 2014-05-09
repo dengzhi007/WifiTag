@@ -15,10 +15,10 @@
     	android:layout_marginRight="15dp"
     	android:layout_marginTop="15dp"
 	    android:orientation="horizontal" >
-	    <ImageView
+<!-- 	    <ImageView
 	        android:layout_width="40dp"
 	        android:layout_height="40dp"
-	        android:background="@drawable/wifi_logo" />
+	        android:background="@drawable/wifi_logo" /> -->
 	    
 	    <TextView
 	        android:id="@+id/create_wifi_tag_ap_ssid"
@@ -48,12 +48,13 @@
 		<EditText
 		    android:id="@+id/create_wifi_tag_pwd"
 		    android:layout_width="0dp"
+		    android:password="true"
 		    android:layout_weight="3"
 		    android:layout_margin="1dp"
 		    android:layout_height="fill_parent"
 		    android:gravity="center"
-		    android:text="@string/create_tag_input_password"
-		    android:textColor="@color/gray"
+		    android:hint="@string/create_tag_input_password"
+		    android:textColor="@color/black"
 		    android:textSize="15dp" >
 		</EditText>
 	</LinearLayout>

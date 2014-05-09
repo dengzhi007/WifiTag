@@ -66,6 +66,12 @@ public class SlideMenuActivity extends Activity {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+		try {
+			if(getIntent().getExtras().get("currentMenuRow")!=null)
+				currentMenuRow=(Integer) getIntent().getExtras().get("currentMenuRow");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		setSelectedMenu(currentMenuRow);
 	}
 	
